@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+$primary: #3498db;
+@import "bootstrap/scss/bootstrap";
+@import "~ngx-toastr/toastr.css";
+.pointer {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .toast-top-right {
+    top: 30px !important;
+    bottom: auto !important;
+    right: 50% !important;
+    transform: translateX(50%) !important;
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .toast {
+    margin: 0 auto;
+  }
+}

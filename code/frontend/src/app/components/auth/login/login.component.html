@@ -1,0 +1,63 @@
+<section class="vh-100 d-flex flex-column">
+  <div
+    class="container-fluid flex-grow-1 d-flex align-items-center justify-content-center"
+  >
+    <div
+      class="row d-flex justify-content-center align-items-center custom-responsive-box shadow border p-md-5 rounded"
+    >
+      <div class="col-md-9 col-lg-6 col-xl-5 text-center">
+        <img
+          src="./assets/images/pngwing.com.png"
+          width="75%"
+          alt="Sample illustration"
+        />
+      </div>
+
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form [formGroup]="loginForm">
+          <h2 class="mb-3">Welcome!</h2>
+
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              class="form-control rounded-3"
+              id="floatingInput"
+              placeholder="name@example.com"
+              name="email"
+              formControlName="email"
+            />
+            <label for="floatingInput">Email Address</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              class="form-control rounded-3"
+              id="floatingPassword"
+              placeholder="Password"
+              name="password"
+              formControlName="password"
+              (paste)="$event.preventDefault()"
+            />
+            <label for="floatingPassword">Password</label>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-100 mb-3 text-white"
+            (click)="handleLogin()"
+          >
+            Login
+          </button>
+        </form>
+
+        <p class="text-center">
+          Not a member?
+          <a class="text-primary pointer" (click)="navigateToPath('/register')">
+            Register now
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

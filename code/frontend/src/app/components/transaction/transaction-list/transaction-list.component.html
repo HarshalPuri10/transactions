@@ -1,0 +1,183 @@
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Transactions</h2>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-danger text-white" (click)="logout()">
+          ⏻ Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 g-2">
+    <div class="col-md-6">
+      <div class="card text-bg-success">
+        <div class="card-body">
+          <h6 class="card-title mb-1">Total Earnings</h6>
+          <h4 class="card-text">₹ {{ dashboard?.profit }}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card text-bg-danger">
+        <div class="card-body">
+          <h6 class="card-title mb-1">Total Expenses</h6>
+          <h4 class="card-text">₹ {{ dashboard?.loss }}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="card p-3 mb-3">
+    <h6 class="mb-2">{{ isEditMode ? "Edit" : "Add" }} Transaction</h6>
+
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+      <div class="row g-2">
+        <div class="col-md-4">
+          <label class="form-label small">Title</label>
+          <input
+            class="form-control form-control-sm"
+            formControlName="title"
+            placeholder="e.g., Grocery Shopping"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label small">Date</label>
+          <input
+            type="datetime-local"
+            class="form-control form-control-sm"
+            formControlName="date"
+            placeholder="Select date and time"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label small">Amount</label>
+          <input
+            type="number"
+            class="form-control form-control-sm"
+            formControlName="amount"
+            placeholder="e.g., 1500"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label small">Category</label>
+          <input
+            class="form-control form-control-sm"
+            formControlName="category"
+            placeholder="e.g., Food, Rent, Travel"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label small">Type</label>
+          <select class="form-select form-select-sm" formControlName="type">
+            <option value="" disabled selected>Select type</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <button type="submit" class="btn btn-sm btn-primary text-white">
+          {{ isEditMode ? "Update" : "Add" }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary"
+          (click)="cancelForm()"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Responsive Transaction Table -->
+  <div class="table-responsive" *ngIf="transactions?.length != 0">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Type</th>
+          <th>Title</th>
+          <!-- <th>Date</th> -->
+          <!-- <th>Category</th> -->
+          <th>Amount</th>
+          <th class="">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let txn of transactions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ txn.type === "income" ? "💰 Income" : "💸 Expense" }}</td>
+          <td>{{ txn.title }}</td>
+          <!-- <td>{{ txn.date | date : "MMM d, y, h:mm a" }}</td> -->
+          <!-- <td>{{ txn.category }}</td> -->
+          <td
+            [ngClass]="
+              txn.type === 'income'
+                ? 'text-success fw-bold'
+                : 'text-danger fw-bold'
+            "
+          >
+            ₹{{ txn.amount | number : "1.2-2" }}
+          </td>
+
+          <!-- Actions for medium and above -->
+          <td class="d-none d-md-table-cell">
+            <button
+              class="btn btn-outline-primary btn-sm me-2"
+              (click)="editTransaction(txn)"
+            >
+              ✏️ Edit
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteTransaction(txn._id)"
+            >
+              🗑️ Delete
+            </button>
+          </td>
+
+          <!-- Dropdown for small screens -->
+          <td class="d-md-none text-center">
+            <div class="dropdown">
+              <button
+                class="btn btn-light btn-sm"
+                type="button"
+                id="dropdownMenuButton{{ i }}"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                ...
+              </button>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                [attr.aria-labelledby]="'dropdownMenuButton' + i"
+              >
+                <li>
+                  <a class="dropdown-item" (click)="editTransaction(txn)"
+                    >✏️ Edit</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item text-danger"
+                    (click)="deleteTransaction(txn._id)"
+                    >🗑️ Delete</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
