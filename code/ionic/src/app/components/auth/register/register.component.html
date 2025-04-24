@@ -1,0 +1,56 @@
+<ion-content class="ion-padding">
+  <div class="ion-text-center">
+    <h3 class="mb-3">Create Your Account</h3>
+    <p class="text-muted small mb-4">Fill in the details to sign up</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="handleSignUp()">
+      <ion-item lines="full" class="mb-3">
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" formControlName="name" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="mb-3">
+        <ion-label position="floating">Email Address</ion-label>
+        <ion-input type="email" formControlName="email" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="mb-3">
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          type="password"
+          formControlName="password"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="full" class="mb-3">
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input
+          type="password"
+          formControlName="confirmPassword"
+          required
+        ></ion-input>
+      </ion-item>
+
+      <ion-button
+        type="submit"
+        expand="full"
+        class="ion-margin-top"
+        [disabled]="registerForm.invalid"
+      >
+        Sign Up
+      </ion-button>
+    </form>
+
+    <div class="ion-text-center ion-margin-top">
+      Already have an account?
+      <ion-button
+        fill="clear"
+        color="primary"
+        (click)="navigateToPath('/login')"
+      >
+        Login here
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

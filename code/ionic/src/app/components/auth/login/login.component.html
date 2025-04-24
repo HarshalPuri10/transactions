@@ -1,0 +1,70 @@
+<ion-content class="ion-padding">
+  <ion-grid class="vh-100 d-flex flex-column">
+    <ion-row
+      class="flex-grow-1 d-flex align-items-center justify-content-center"
+    >
+      <ion-col
+        size="12"
+        size-md="10"
+        class="d-flex justify-content-center align-items-center custom-responsive-box shadow border p-md-5 rounded"
+      >
+        <ion-row class="ion-align-items-center ion-justify-content-center">
+          <!-- Image Section -->
+          <ion-col size-md="6" class="ion-text-center">
+            <img
+              src="assets/images/pngwing.com.png"
+              style="width: 75%"
+              alt="Sample illustration"
+            />
+          </ion-col>
+
+          <!-- Form Section -->
+          <ion-col size-md="6">
+            <form [formGroup]="loginForm">
+              <h2 class="mb-3 ion-text-center">Welcome!</h2>
+
+              <!-- Email -->
+              <ion-item>
+                <ion-label position="floating">Email Address</ion-label>
+                <ion-input
+                  type="email"
+                  formControlName="email"
+                  required
+                ></ion-input>
+              </ion-item>
+
+              <!-- Password -->
+              <ion-item class="ion-margin-top">
+                <ion-label position="floating">Password</ion-label>
+                <ion-input
+                  type="password"
+                  formControlName="password"
+                  required
+                  (ionPaste)="$event.preventDefault()"
+                ></ion-input>
+              </ion-item>
+
+              <!-- Login Button -->
+              <ion-button
+                expand="block"
+                color="primary"
+                class="ion-margin-top"
+                (click)="handleLogin()"
+              >
+                Login
+              </ion-button>
+            </form>
+
+            <!-- Register Redirect -->
+            <div class="ion-text-center ion-margin-top">
+              <p>
+                Not a member?
+                <a (click)="navigateToPath('/register')">Register now</a>
+              </p>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
